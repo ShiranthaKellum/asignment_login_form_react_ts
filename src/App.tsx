@@ -6,18 +6,14 @@ import LoginPage from './Pages/loginPage';
 function App() {
   return (
     <div className="App">
-      {/* <LoginPage/> */}
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<LoginPage />} />
-          <Route path='homepage' element={<HomePage />} />
+          <Route path='/' element={<LoginPage/>} />
+          <Route path='/homepage' element={<HomePage />} />
 
         </Routes>
-
       </BrowserRouter>
-
     </div>
   );
 }
-
 export default App;
