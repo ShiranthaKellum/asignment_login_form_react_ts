@@ -11,6 +11,7 @@ export default function LoginPage() {
     const { username, password } = data;
     const [userNameError, setUserNameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+    const [loginDetailStatus, setLoginDetailStaus] = useState(false);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === 'username' && e.target.value.length === 0) {
@@ -29,12 +30,10 @@ export default function LoginPage() {
 
                 } else {
                     setPasswordError(false);
-                    
+
                 }
             }
         }
-
-        // console.log(error);
         setData((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
@@ -43,13 +42,12 @@ export default function LoginPage() {
     }
 
     const handleData = (e: FormEvent<HTMLFormElement>) => {
-        // console.log(userNameError, passwordError);
-        // if (!userNameError && !passwordError) {
-        e.preventDefault();
-        // console.log(data);
-        // setData(initData);
+        if (data.username === 'admin' && data.password === 'password') {
+            setLoginDetailStaus(true);
 
-        // }
+        }
+        e.preventDefault();
+
     }
     return (
         <div>
@@ -103,7 +101,7 @@ export default function LoginPage() {
 
                 }
                 <br />
-                {userNameError || passwordError ?
+                {userNameError || passwordError || !loginDetailStatus ?
                     <input
                         type='submit'
                         value='Log in'
@@ -117,7 +115,6 @@ export default function LoginPage() {
 
                     </Link>
                 }
-
             </form>
         </div>
 
