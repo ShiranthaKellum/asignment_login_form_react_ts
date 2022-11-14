@@ -9,8 +9,32 @@ export default function LoginPage() {
     };
     const [data, setData] = useState(initData);
     const { username, password } = data;
+    const [userNameError, setUserNameError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.name === 'username' && e.target.value.length === 0) {
+            setUserNameError(true);
+            console.log(userNameError);
+
+        } else {
+            if (e.target.name === 'password' && e.target.value.length === 0) {
+                setPasswordError(true);
+                console.log(passwordError);
+
+            }
+            else {
+                if (e.target.name === 'username' && e.target.value.length > 0) {
+                    setUserNameError(false);
+
+                } else {
+                    setPasswordError(false);
+                    
+                }
+            }
+        }
+
+        // console.log(error);
         setData((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
@@ -19,10 +43,13 @@ export default function LoginPage() {
     }
 
     const handleData = (e: FormEvent<HTMLFormElement>) => {
+        // console.log(userNameError, passwordError);
+        // if (!userNameError && !passwordError) {
         e.preventDefault();
-        console.log(data);
-        setData(initData);
+        // console.log(data);
+        // setData(initData);
 
+        // }
     }
     return (
         <div>
@@ -34,25 +61,63 @@ export default function LoginPage() {
                     name="username"
                     placeholder="username"
                     value={username}
-                    onChange={e => {onChange(e)}}
+                    onChange={e => { onChange(e) }}
+                    autoComplete='off'
 
-                /><br></br>
+                />
+                <br />
+                {userNameError ?
+                    <label
+                        style={{
+                            color: 'red',
+
+                        }}
+                    >
+                        User name can not be empty!
+
+                    </label> : ""
+
+                }
+                <br></br>
                 <label htmlFor='password'>Password</label>
                 <input
                     type='password'
                     name="password"
                     placeholder="password"
                     value={password}
-                    onChange={e => {onChange(e)}}
+                    onChange={e => { onChange(e) }}
+                    autoComplete='off'
 
-                /><br />
-                <Link to='/homepage' state={{data: data}}>
+                />
+                <br />
+                {passwordError ?
+                    <label
+                        style={{
+                            color: 'red',
+
+                        }}
+                    >
+                        Password can not be empty!
+
+                    </label> : ""
+
+                }
+                <br />
+                {userNameError || passwordError ?
                     <input
                         type='submit'
                         value='Log in'
-                    />
 
-                </Link>
+                    /> :
+                    <Link to='/homepage' state={{ data: data }}>
+                        <input
+                            type='submit'
+                            value='Log in'
+                        />
+
+                    </Link>
+                }
+
             </form>
         </div>
 

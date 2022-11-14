@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 export default function HomePage(props: any) {
     const location = useLocation();
     const data = location.state?.data;
-    console.log(props)
+    console.log(data);
     return (
         <div>
             <h1>Home Page</h1>
