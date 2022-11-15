@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export default function LoginPage() {
     const initData = {
@@ -11,29 +11,9 @@ export default function LoginPage() {
     const { username, password } = data;
     const [userNameError, setUserNameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const [loginDetailStatus, setLoginDetailStaus] = useState(false);
+    const [loginDetailStatus, setLoginDetailStatus] = useState(false);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.name === 'username' && e.target.value.length === 0) {
-            setUserNameError(true);
-            console.log(userNameError);
-
-        } else {
-            if (e.target.name === 'password' && e.target.value.length === 0) {
-                setPasswordError(true);
-                console.log(passwordError);
-
-            }
-            else {
-                if (e.target.name === 'username' && e.target.value.length > 0) {
-                    setUserNameError(false);
-
-                } else {
-                    setPasswordError(false);
-
-                }
-            }
-        }
         setData((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
@@ -42,11 +22,31 @@ export default function LoginPage() {
     }
 
     const handleData = (e: FormEvent<HTMLFormElement>) => {
+        if (data.username === '') {
+            setUserNameError(true);
+            console.log('username error ', userNameError);
+
+        } else {
+            setUserNameError(false);
+            console.log('username error ', userNameError);
+
+        }
+        if (data.password === '') {
+            setPasswordError(true);
+            console.log('password error ', passwordError);
+
+        } else {
+            setPasswordError(false);
+            console.log('password error ', passwordError);
+            
+        }
         if (data.username === 'admin' && data.password === 'password') {
-            setLoginDetailStaus(true);
+            setLoginDetailStatus(true);
+            console.log('login detail status ', loginDetailStatus);
 
         }
         e.preventDefault();
+        // console.log(userNameError, passwordError, loginDetailStatus);
 
     }
     return (
@@ -60,7 +60,7 @@ export default function LoginPage() {
                     placeholder="username"
                     value={username}
                     onChange={e => { onChange(e) }}
-                    autoComplete='off'
+                    // autoComplete='off'
 
                 />
                 <br />
@@ -84,7 +84,7 @@ export default function LoginPage() {
                     placeholder="password"
                     value={password}
                     onChange={e => { onChange(e) }}
-                    autoComplete='off'
+                    // autoComplete='off'
 
                 />
                 <br />
@@ -107,13 +107,13 @@ export default function LoginPage() {
                         value='Log in'
 
                     /> :
-                    <Link to='/homepage' state={{ data: data }}>
+                    <NavLink to='/homepage' state={{ data: data }}>
                         <input
                             type='submit'
                             value='Log in'
                         />
 
-                    </Link>
+                    </NavLink>
                 }
             </form>
         </div>
