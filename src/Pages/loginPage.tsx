@@ -7,17 +7,17 @@ export default function LoginPage() {
         password: '',
     }
     // data set
-    const [data, setData] = useState<{ username: string; password: string; }>(initialLoginData);
+    const [loginData, setLoginData] = useState<{ username: string; password: string; }>(initialLoginData);
     // errors
     const [userNameError, setUserNameError] = useState<boolean>(false);
     const [passwordError, setPasswordError] = useState<boolean>(false);
-    const { username, password } = data;
+    const { username, password } = loginData;
 
     const navigate = useNavigate();
     
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value.length);
-        setData((prevState) => ({
+        setLoginData((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }));
